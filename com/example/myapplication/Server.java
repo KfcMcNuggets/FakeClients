@@ -3,10 +3,12 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
     //public static LinkedList<ConnectedDevice> connectedDevices = new LinkedList<>();
     public static ArrayList<User> userList = new ArrayList<>();
+    public static ReentrantLock userListMutex = new ReentrantLock();
     
      
     public static void main(String[] args) throws IOException {
