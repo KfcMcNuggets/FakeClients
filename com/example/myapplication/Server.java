@@ -5,23 +5,21 @@ import java.net.Socket;
 import java.util.*;
 
 public class Server {
-    public static LinkedList<Sockets> serverList = new LinkedList<>();
+    //public static LinkedList<ConnectedDevice> connectedDevices = new LinkedList<>();
+    public static ArrayList<User> userList = new ArrayList<>();
     
-     // серверсокет
-    // private static BufferedReader in; // поток чтения из сокета
-    // private static BufferedWriter out; // поток записи в сокет
-
+     
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(4004);
         System.out.println("Opend");
             try {   
                 while(true){
                     Socket socket = server.accept();
-                    System.out.println("new connection");
+                    System.out.println("new connection " + socket);
                     try{
-                        serverList.add(new Sockets(socket));
+                      new ConnectedDevice(socket);
                     } catch (IOException e){
-                        
+                        System.out.println("Error in server main");
                         socket.close();
                     }
                 }
@@ -35,4 +33,10 @@ public class Server {
                 
 
     }
-}    
+
+
+}
+
+
+
+  
