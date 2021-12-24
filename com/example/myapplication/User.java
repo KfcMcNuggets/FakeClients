@@ -6,6 +6,8 @@ import java.io.*;
 import static com.example.myapplication.Server.userList;
 
 public class User extends ConnectedDevice implements Serializable{
+    static ArrayList<Message> messagesin = new ArrayList<>();
+    static ArrayList<Message> messagesout = new ArrayList<>();  
     private static final long serialVersionUID = 6529685098267757690L;
     private String userId;
     private String username;
@@ -24,6 +26,8 @@ public class User extends ConnectedDevice implements Serializable{
                 InputStream inputStream = socket.getInputStream();
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);   
                 Message msg = (Message) objectInputStream.readObject();
+                messagesin.add(msg);
+                System.out.println("Messages in = " + messagesin.size());
                 System.out.println("Taked message from  " + msg.sender + " to " + msg.receiver);    
                 messageWorker(msg);
                     
@@ -80,6 +84,8 @@ public class User extends ConnectedDevice implements Serializable{
                                     OutputStream outputStream = user.socket.getOutputStream();
                                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
                                     objectOutputStream.writeObject(msg);
+                                    messagesout.add(msg);
+                                    System.out.println("Messages out = " + messagesout.size());
                                     System.out.println("Sended in thread - " + Thread.currentThread());
                                     System.out.println("Sended messege from " + msg.sender + " to " + user.getUserId() + "    " + user.socket);
                                     System.out.println(msg + "      " + msg.msg + "     ");
